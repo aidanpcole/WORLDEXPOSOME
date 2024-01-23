@@ -4,7 +4,7 @@ dataT, showmeHistogram, addHistInput, checkies, showdown */
 let dlist;
 /* === MY DATA ON GITHUB === */
 const mapvars = {
-  PMTFV: "https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/UK_IRELAND_simple.geojson",
+  PMTFV: "https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap/simpleworld.geojson",
   OZONE: "https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/UK_IRELAND_simple.geojson",
   NOTWO: "https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/UK_IRELAND_simple.geojson",
   LIGHT: "https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/UK_IRELAND_simple.geojson",
