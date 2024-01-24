@@ -4,7 +4,7 @@ dataT, showmeHistogram, addHistInput, checkies, showdown */
 let dlist;
 /* === MY DATA ON GITHUB === */
 const mapvars = {
-  PMTFV: "https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap/simpleworld.geojson.json",
+  PMTFV: "https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap/world.geojson",
   OZONE: "https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/UK_IRELAND_simple.geojson",
   NOTWO: "https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/UK_IRELAND_simple.geojson",
   LIGHT: "https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/UK_IRELAND_simple.geojson",
@@ -14,19 +14,34 @@ const mapvars = {
 //const pointLayers = ["coolingCenters", "emergencyP", "pools", "parks", "hosp"]; // i think this needs to be a dictionary
 const polygonLayers = ["PMTFV","OZONE","NOTWO","LIGHT","SOURCE"]; // with string name and var
 
-$.getJSON("https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap/simpleworld.geojson.json", function(json) {
+let geoList;
+
+$.getJSON("https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap/world.geojson", function(json) {
 
 	var geoLayer = L.geoJson(json).addTo(map);
 
 	geoList = new L.Control.GeoJSONSelector(geoLayer, {
 		zoomToLayer: true,
-		listDisabled: true,
-		activeListFromLayer: false,
-		activeLayerFromList: false,
+		listDisabled: false,
+		activeListFromLayer: true,
+		activeLayerFromList: true,
 		listOnlyVisibleLayers: false,
-		listItemBuild: false,
-		collapsed: true
 	}).addTo(map);
+
+	geoList.on('selector:change', function(e) {
+
+		var jsonObj = $.parseJSON( JSON.stringify(e.layers[0].feature.properties) );
+		var html = 'Selection:<br /><table border="1">';
+		$.each(jsonObj, function(key, value){
+				html += '<tr>';
+				html += '<td>' + key.replace(":", " ") + '</td>';
+				html += '<td>' + value + '</td>';
+				html += '</tr>';
+		});
+		html += '</table>';
+
+		$('.selection').html(html);
+	});
 
 });
 
