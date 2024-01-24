@@ -2,20 +2,29 @@
 /* 1. === Setting up Map === */
 /* set up with zoom 5, may change, changed lat
 and long from 34,0836417742618, -118.5298649280784 */
-var bounds = new L.LatLngBounds(
+var imbounds = new L.LatLngBounds(
     new L.LatLng(45.9814, -22.8472),
     new L.LatLng(62.2015143, 12.28));
+    
+var inbounds = new L.LatLngBounds(
+    new L.LatLng(4.7891, 58.0936),
+    new L.LatLng(36.4607, 101.0598));
+    
+var bounds = new L.LatLngBounds(
+    new L.LatLng(-9.2009, -18.1474),
+    new L.LatLng(70.4855, 102.7610));
 
 var maxbounds = new L.LatLngBounds(
     new L.LatLng(34.0101, -48.9634),
     new L.LatLng(69.2025, 36.0782)
 )
 
-let map = L.map('map', {zoomControl: false, center: bounds.getCenter(),maxBounds: maxbounds,maxBoundsViscosity: 1.0, maxZoom:9, minZoom:4 }).setView([54.09145,-5.2836], 3);
+let map = L.map('map', {zoomControl: false, center: bounds.getCenter(), /*maxBounds: maxbounds,maxBoundsViscosity: 1.0,*/ maxZoom:9, minZoom:4 })
 map.fitBounds(bounds);
 
-const basemap = 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png';
-const attribution = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.';
+
+const basemap = 'https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png';
+const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
 var WhiteCanvas = L.tileLayer(basemap, {
   attribution,
 });
@@ -25,10 +34,9 @@ var Esri_WorldImagery = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/
     'AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
 });
 
-var Jawg_Dark = L.tileLayer('https://{s}.tile.jawg.io/jawg-dark/{z}/{x}/{y}{r}.png?access-token={accessToken}', {
-	attribution: '<a href="http://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank">&copy; <b>Jawg</b>Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-	subdomains: 'abcd',
-	accessToken: 'XapsVYJ3Eyc3KzREmwlbekucvMXh6coHVnuFcYEPauI6a6UG1AKe9mrAYewMsITx'
+var Jawg_Dark = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+	subdomains: 'abcd'
 });
 
 let baseLayers = {
@@ -48,65 +56,142 @@ sidebarContentController("story-slide");
 let dataT = [];
 
 /* PM LAYERS */
-var layerPM_2010 = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/PM_2010_E_I.png", bounds, {
+var layerPM_2010 = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/PM_2010_E_I.png", imbounds, {
     opacity: 1.0,
     interactive: false,
     time: "2010"
 });
 
-var layerPM_2011 = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/PM_2011_E_I.png", bounds, {
+var layerPM_2011 = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/PM_2011_E_I.png", imbounds, {
     opacity: 1.0,
     interactive: false,
     time: "2011"
 });
 
-var layerPM_2012 = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/PM_2012_E_I.png", bounds, {
+var layerPM_2012 = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/PM_2012_E_I.png", imbounds, {
     opacity: 1.0,
     interactive: false,
     time: "2012"
 });
 
-var layerPM_2013 = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/PM_2013_E_I.png", bounds, {
+var layerPM_2013 = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/PM_2013_E_I.png", imbounds, {
     opacity: 1.0,
     interactive: false,
     time: "2013"
 });
 
-var layerPM_2014 = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/PM_2014_E_I.png", bounds, {
+var layerPM_2014 = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/PM_2014_E_I.png", imbounds, {
     opacity: 1.0,
     interactive: false,
     time: "2014"
 });
 
-var layerPM_2015 = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/PM_2015_E_I.png", bounds, {
+var layerPM_2015 = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/PM_2015_E_I.png", imbounds, {
     opacity: 1.0,
     interactive: false,
     time: "2015"
 });
 
-var layerPM_2016 = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/PM_2016_E_I.png", bounds, {
+var layerPM_2016 = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/PM_2016_E_I.png", imbounds, {
     opacity: 1.0,
     interactive: false,
     time: "2016"
 });
 
-var layerPM_2017 = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/PM_2017_E_I.png", bounds, {
+var layerPM_2017 = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/PM_2017_E_I.png", imbounds, {
     opacity: 1.0,
     interactive: false,
     time: "2017"
 });
 
-var layerPM_2018 = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/PM_2018_E_I.png", bounds, {
+var layerPM_2018 = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/PM_2018_E_I.png", imbounds, {
     opacity: 1.0,
     interactive: false,
     time: "2018"
 });
 
-var layerPM_2019 = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/PM_2019_E_I.png", bounds, {
+var layerPM_2019 = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/PM_2019_E_I.png", imbounds, {
     opacity: 1.0,
     interactive: false,
     time: "2019"
 });
+
+
+
+
+
+
+
+/* PM LAYERS */
+var layerPM_2010_R = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/EXPOSOMEDASHBOARD/main/data/DataForMap/PM_2010_R.png", inbounds, {
+    opacity: 1.0,
+    interactive: false,
+    time: "2010"
+});
+
+var layerPM_2011_R = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/EXPOSOMEDASHBOARD/main/data/DataForMap/PM_2011_R.png", inbounds, {
+    opacity: 1.0,
+    interactive: false,
+    time: "2011"
+});
+
+var layerPM_2012_R = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/EXPOSOMEDASHBOARD/main/data/DataForMap/PM_2012_R.png", inbounds, {
+    opacity: 1.0,
+    interactive: false,
+    time: "2012"
+});
+
+var layerPM_2013_R = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/EXPOSOMEDASHBOARD/main/data/DataForMap/PM_2013_R.png", inbounds, {
+    opacity: 1.0,
+    interactive: false,
+    time: "2013"
+});
+
+var layerPM_2014_R = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/EXPOSOMEDASHBOARD/main/data/DataForMap/PM_2014_R.png", inbounds, {
+    opacity: 1.0,
+    interactive: false,
+    time: "2014"
+});
+
+var layerPM_2015_R = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/EXPOSOMEDASHBOARD/main/data/DataForMap/PM_2015_R.png", inbounds, {
+    opacity: 1.0,
+    interactive: false,
+    time: "2015"
+});
+
+var layerPM_2016_R = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/EXPOSOMEDASHBOARD/main/data/DataForMap/PM_2016_R.png", inbounds, {
+    opacity: 1.0,
+    interactive: false,
+    time: "2016"
+});
+
+var layerPM_2017_R = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/EXPOSOMEDASHBOARD/main/data/DataForMap/PM_2017_R.png", inbounds, {
+    opacity: 1.0,
+    interactive: false,
+    time: "2017"
+});
+
+var layerPM_2018_R = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/EXPOSOMEDASHBOARD/main/data/DataForMap/PM_2018_R.png", inbounds, {
+    opacity: 1.0,
+    interactive: false,
+    time: "2018"
+});
+
+var layerPM_2019_R = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/EXPOSOMEDASHBOARD/main/data/DataForMap/PM_2019_R.png", inbounds, {
+    opacity: 1.0,
+    interactive: false,
+    time: "2019"
+});
+
+
+
+
+
+
+
+
+
+
 
 /* OZONE LAYERS */ 
 var layerOZONE_1990 = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/OZONE_1990_E_I.png", bounds, {
@@ -461,7 +546,7 @@ var layerSOURCE_BIOFUEL = new L.ImageOverlay("https://raw.githubusercontent.com/
 
 
 /* make a layergroup for each type of pollution and then use checkies to decide which layergroup is shown */
-PMTFVP = L.layerGroup([layerPM_2010,layerPM_2011,layerPM_2012,layerPM_2013,layerPM_2014,layerPM_2015,layerPM_2016,layerPM_2017,layerPM_2018,layerPM_2019]);
+PMTFVP = L.layerGroup([layerPM_2010,layerPM_2010_R,layerPM_2011,layerPM_2011_R,layerPM_2012,layerPM_2012_R,layerPM_2013,layerPM_2013_R,layerPM_2014,layerPM_2014_R,layerPM_2015,layerPM_2015_R,layerPM_2016,layerPM_2016_R,layerPM_2017,layerPM_2017_R,layerPM_2018,layerPM_2018_R,layerPM_2019,layerPM_2019_R]);
 OZONEP = L.layerGroup([layerOZONE_1990,layerOZONE_1991,layerOZONE_1992,layerOZONE_1993,layerOZONE_1994,layerOZONE_1995,layerOZONE_1996,layerOZONE_1997,layerOZONE_1998,layerOZONE_1999,layerOZONE_2000,layerOZONE_2001,layerOZONE_2002,layerOZONE_2003,layerOZONE_2004,layerOZONE_2005,layerOZONE_2006,layerOZONE_2007,layerOZONE_2008,layerOZONE_2009,layerOZONE_2010,layerOZONE_2011,layerOZONE_2012,layerOZONE_2013,layerOZONE_2014,layerOZONE_2015,layerOZONE_2016,layerOZONE_2017]);
 NOTWOP = L.layerGroup([layerNO_1990,layerNO_1995,layerNO_2000,layerNO_2005,layerNO_2006,layerNO_2007,layerNO_2008,layerNO_2009,layerNO_2010,layerNO_2011,layerNO_2012,layerNO_2013,layerNO_2014,layerNO_2015,layerNO_2016,layerNO_2017,layerNO_2018,layerNO_2019,layerNO_2020]);
 /*LIGHTP = L.layerGroup([layerLIGHT_2012,layerLIGHT_2013,layerLIGHT_2014,layerLIGHT_2015,layerLIGHT_2016,layerLIGHT_2017,layerLIGHT_2018,layerLIGHT_2019,layerLIGHT_2020,layerLIGHT_2021]); 
@@ -593,7 +678,7 @@ L.control.zoom({
 }).addTo(map);
 
 
-map.setView([54.09145,-5.2836], 5);
+map.setView([40.5422,28.8354], 1);
 
 
 

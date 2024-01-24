@@ -4,7 +4,7 @@ dataT, showmeHistogram, addHistInput, checkies, showdown */
 let dlist;
 /* === MY DATA ON GITHUB === */
 const mapvars = {
-  PMTFV: "https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap/simpleworld.geojson",
+  PMTFV: "https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap/simpleworld.geojson.json",
   OZONE: "https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/UK_IRELAND_simple.geojson",
   NOTWO: "https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/UK_IRELAND_simple.geojson",
   LIGHT: "https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/UK_IRELAND_simple.geojson",
@@ -14,7 +14,21 @@ const mapvars = {
 //const pointLayers = ["coolingCenters", "emergencyP", "pools", "parks", "hosp"]; // i think this needs to be a dictionary
 const polygonLayers = ["PMTFV","OZONE","NOTWO","LIGHT","SOURCE"]; // with string name and var
 
+$.getJSON("https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap/simpleworld.geojson.json", function(json) {
 
+	var geoLayer = L.geoJson(json).addTo(map);
+
+	geoList = new L.Control.GeoJSONSelector(geoLayer, {
+		zoomToLayer: true,
+		listDisabled: true,
+		activeListFromLayer: false,
+		activeLayerFromList: false,
+		listOnlyVisibleLayers: false,
+		listItemBuild: false,
+		collapsed: true
+	}).addTo(map);
+
+});
 
 let tableData;
 
