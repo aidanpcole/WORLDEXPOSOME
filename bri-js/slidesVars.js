@@ -28,11 +28,12 @@ const filterslide = {
   <h5><input type="checkbox" id="PMTFV" class="largerCheck"> <span style="font-weight:bold;">&nbspFine Particulate Matter (PM<sub>2.5</sub>)</span></h5>
   <h5><input type="checkbox" id="NOTWO" class="largerCheck"> <span style="font-weight:bold;">&nbspNitrogen Dioxide (NO<sub>2</sub>)</span></h5>
   <h5><input type="checkbox" id="OZONE" class="largerCheck"> <span style="font-weight:bold;">&nbspOzone (O<sub>3</sub>)</span></h5>
-  <h5><input type="checkbox" id="LIGHT" class="largerCheck" disabled> <span style="font-weight:bold;">&nbspNighttime Light</span></h5>
+  <h5><input type="checkbox" id="BLUES" class="largerCheck"> <span style="font-weight:bold;">&nbspBlue Space</span></h5>
   <br style="line-height:15px;">
-  <p>Source Fraction and Greenspace coming soon!</p> 
+  <p>Source Fraction, Nighttime Light and Greenspace coming soon!</p> 
   <h5><input type="checkbox" id="SOURCE" class="largerCheck" disabled> <span style="font-weight:bold;">&nbspFine Particulate Matter (PM<sub>2.5</sub>) &nbsp&nbsp&nbsp&nbsp&nbsp&nbspSource Fraction</span></h5>
-  <h5><input type="checkbox" id="GREEN" class="largerCheck" disabled> <span style="font-weight:bold;">&nbspGreenspace</span></h5>
+  <h5><input type="checkbox" id="LIGHT" class="largerCheck" disabled> <span style="font-weight:bold;">&nbspNighttime Light</span></h5>
+  <h5><input type="checkbox" id="GREEN" class="largerCheck" disabled> <span style="font-weight:bold;">&nbspGreen Space</span></h5>
  </div>`,
 };
 

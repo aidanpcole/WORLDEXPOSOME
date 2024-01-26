@@ -5,44 +5,29 @@ let dlist;
 /* === MY DATA ON GITHUB === */
 const mapvars = {
   PMTFV: "https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap/countries.geojson",
-  OZONE: "https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/UK_IRELAND_simple.geojson",
-  NOTWO: "https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/UK_IRELAND_simple.geojson",
+  OZONE: "https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap/countries.geojson",
+  NOTWO: "https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap/countries.geojson",
   LIGHT: "https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/UK_IRELAND_simple.geojson",
-  SOURCE: "https://raw.githubusercontent.com/aidanpcole/EXPOSOMEDASHBOARD/main/data/DataForMap/pm25_quants.geojson"
+  BLUES: "https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap/countries.geojson"
 };
 
 //const pointLayers = ["coolingCenters", "emergencyP", "pools", "parks", "hosp"]; // i think this needs to be a dictionary
-const polygonLayers = ["PMTFV","OZONE","NOTWO","LIGHT","SOURCE"]; // with string name and var
+const polygonLayers = ["PMTFV","OZONE","NOTWO","LIGHT","BLUES"]; // with string name and var
 
-let geoList;
 
 $.getJSON("https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap/countries.geojson", function(json) {
 
+	let geoList;
 	var geoLayer = L.geoJson(json).addTo(map);
 
 	geoList = new L.Control.GeoJSONSelector(geoLayer, {
 		zoomToLayer: true,
-		listDisabled: false,
-		activeListFromLayer: true,
+		listDisabled: true,
+		activeListFromLayer: false,
 		activeLayerFromList: true,
 		listOnlyVisibleLayers: false,
+		collapsed: true
 	}).addTo(map);
-
-	geoList.on('selector:change', function(e) {
-
-		var jsonObj = $.parseJSON( JSON.stringify(e.layers[0].feature.properties) );
-		var html = 'Selection:<br /><table border="1">';
-		$.each(jsonObj, function(key, value){
-				html += '<tr>';
-				html += '<td>' + key.replace(":", " ") + '</td>';
-				html += '<td>' + value + '</td>';
-				html += '</tr>';
-		});
-		html += '</table>';
-
-		$('.selection').html(html);
-	});
-
 });
 
 let tableData;
@@ -126,7 +111,7 @@ const bindingsvars = {
   OZONE: onEachFeatureOZONE,
   NOTWO: onEachFeatureNOTWO,
   LIGHT: onEachFeatureLIGHT,
-  SOURCE: onEachFeaturePMTFV,
+  BLUES: onEachFeaturePMTFV,
 };
 
 
@@ -200,7 +185,7 @@ function determineMap() {
 //      updateMappointPCH(mapvars[name], name, emptyCallback);
 //    }
     if (polygonLayers.includes(name)) {
-      updateMap(mapvars[name], stylevars[name]);   /// used to have ", bindingsvars[name]" after stylevars[name]
+     updateMap(mapvars[name], stylevars[name]);   /// used to have ", bindingsvars[name]" after stylevars[name]
     }
   });
 }
@@ -363,9 +348,9 @@ function LIGHTCheck() {
   // onCheck();
 }
 
-function SOURCECheck() {
+function BLUESCheck() {
   if (checkies[4].checked) {
-  	document.querySelector('#SOURCE').onclick = (e) => {
+  	document.querySelector('#BLUES').onclick = (e) => {
   		e.preventDefault();
   		e.stopPropagation
   		return false;
