@@ -103,7 +103,7 @@ const stylevars = {
   OZONE: style,
   NOTWO: style,
   LIGHT: style,
-  SOURCE: style,
+  BLUES: style,
 };
 
 const bindingsvars = {
@@ -116,8 +116,8 @@ const bindingsvars = {
 
 
 
-/// .addTo(map) used to be .addTo(layerGroup) used to have ", bindings" after styleType 
-function updateMap(url, styleType) {
+/// .addTo(map) used to be .addTo(layerGroup) used to have ", styleType, bindings" after url
+function updateMap(url) {
 			map.eachLayer(function(layer) {
   	if (!!layer.toGeoJSON) {
     map.removeLayer(layer);
@@ -128,7 +128,7 @@ function updateMap(url, styleType) {
     .then(data => {
       dlist = data;
       L.geoJSON(data, {
-        style: styleType,
+//        style: styleType,
 ///use to have onEachFeature: bindings here 
       }).addTo(map);
     });
@@ -141,7 +141,7 @@ function updateMap(url, styleType) {
 
 function initializeMap() { 
   console.log("INITIALIZEMAP FN");
-  updateMap(mapvars.PMTFV, stylevars.PMTFV); /// used to have ", onEachFeaturePMTFV" after stylevars.PMTFV
+  updateMap(mapvars.PMTFV); /// used to have ", stylevars.PMTFV, onEachFeaturePMTFV" after stylevars.PMTFV
   sidebarContentController("filter-slide");
 }
 
@@ -185,7 +185,7 @@ function determineMap() {
 //      updateMappointPCH(mapvars[name], name, emptyCallback);
 //    }
     if (polygonLayers.includes(name)) {
-     updateMap(mapvars[name], stylevars[name]);   /// used to have ", bindingsvars[name]" after stylevars[name]
+     updateMap(mapvars[name]);   /// used to have ", stylevars[name], bindingsvars[name]" after stylevars[name]
     }
   });
 }

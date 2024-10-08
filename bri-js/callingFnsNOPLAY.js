@@ -24,8 +24,10 @@ var maxbounds = new L.LatLngBounds(
     new L.LatLng(69.2025, 36.0782)
 )
 
-let map = L.map('map', {zoomControl: false, center: bounds.getCenter(), /*maxBounds: maxbounds,maxBoundsViscosity: 1.0,*/ maxZoom:9, minZoom:4 })
+let map = L.map('map', {zoomControl: false, center: bounds.getCenter(), /*maxBounds: maxbounds,maxBoundsViscosity: 1.0,*/ maxZoom:3, minZoom:1 }).setView([11.3, -45], 3);
 map.fitBounds(bounds);
+
+
 
 
 const basemap = 'https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png';
@@ -694,8 +696,8 @@ L.control.zoom({
 }).addTo(map);
 
 
-map.setView([41,28], 1);
 
+map.setView([11.3, -45], 3)
 
 
 let velocityLayer;
