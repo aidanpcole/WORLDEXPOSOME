@@ -24,6 +24,12 @@ var maxbounds = new L.LatLngBounds(
     new L.LatLng(69.2025, 36.0782)
 )
 
+
+var worldbounds = new L.LatLngBounds(
+		new L.LatLng(-59.3612948,-179.4239418),
+		new L.LatLng(75.1548814,97.7829441)
+)
+
 let map = L.map('map', {zoomControl: false, center: bounds.getCenter(), /*maxBounds: maxbounds,maxBoundsViscosity: 1.0,*/ maxZoom:3, minZoom:1 }).setView([11.3, -45], 3);
 map.fitBounds(bounds);
 
@@ -63,7 +69,7 @@ sidebarContentController("story-slide");
 let dataT = [];
 
 /* PM LAYERS */
-var layerPM_2010 = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/PM_2010_E_I.png", imbounds, {
+var layerPM_2010 = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap/PM_2010.png", worldbounds, {
     opacity: 1.0,
     interactive: false,
     time: "2010"
