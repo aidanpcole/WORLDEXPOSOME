@@ -4,7 +4,7 @@ dataT, showmeHistogram, addHistInput, checkies, showdown */
 let dlist;
 /* === MY DATA ON GITHUB === */
 const mapvars = {
-  PMTFV: "https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap/countries.geojson",
+  PMTFV: "https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap/all_countries.geojson",
   OZONE: "https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap/countries.geojson",
   NOTWO: "https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap/countries.geojson",
   LIGHT: "https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/UK_IRELAND_simple.geojson",
@@ -15,7 +15,7 @@ const mapvars = {
 const polygonLayers = ["PMTFV","OZONE","NOTWO","LIGHT","BLUES"]; // with string name and var
 
 
-$.getJSON("https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap/countries.geojson", function(json) {
+$.getJSON("https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap/all_countries.geojson", function(json) {
 
 	let geoList;
 	var geoLayer = L.geoJson(json).addTo(map);
