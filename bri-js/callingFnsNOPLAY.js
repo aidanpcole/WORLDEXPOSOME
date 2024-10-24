@@ -69,7 +69,7 @@ sidebarContentController("story-slide");
 let dataT = [];
 
 /* PM LAYERS */
-var layerPM_2010 = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap/PM_2010.png", worldbounds, {
+var layerPM_2010 = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap/PM_TEST2.png", worldbounds, {
     opacity: 1.0,
     interactive: false,
     time: "2010"
