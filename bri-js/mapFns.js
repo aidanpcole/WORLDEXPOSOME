@@ -4,31 +4,18 @@ dataT, showmeHistogram, addHistInput, checkies, showdown */
 let dlist;
 /* === MY DATA ON GITHUB === */
 const mapvars = {
-  PMTFV: "https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap/all_countries.geojson",
-  OZONE: "https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap/countries.geojson",
-  NOTWO: "https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap/countries.geojson",
-  LIGHT: "https://raw.githubusercontent.com/aidanpcole/EXPOSOME_IRELAND_UK/main/data/DataForMap/UK_IRELAND_simple.geojson",
-  BLUES: "https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap/countries.geojson"
+  PMTFV: "https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap/world.geojson",
+  OZONE: "https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap/world.geojson",
+  NOTWO: "https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap/world.geojson",
+  LIGHT: "https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap/world.geojson",
+  GREEN: "https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap/world.geojson",
+  BLUES: "https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap/world.geojson"
 };
 
 //const pointLayers = ["coolingCenters", "emergencyP", "pools", "parks", "hosp"]; // i think this needs to be a dictionary
-const polygonLayers = ["PMTFV","OZONE","NOTWO","LIGHT","BLUES"]; // with string name and var
+const polygonLayers = ["PMTFV","OZONE","NOTWO","LIGHT","GREEN","BLUES"]; // with string name and var
 
 
-$.getJSON("https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap/all_countries.geojson", function(json) {
-
-	let geoList;
-	var geoLayer = L.geoJson(json).addTo(map);
-
-	geoList = new L.Control.GeoJSONSelector(geoLayer, {
-		zoomToLayer: true,
-		listDisabled: true,
-		activeListFromLayer: false,
-		activeLayerFromList: true,
-		listOnlyVisibleLayers: false,
-		collapsed: true
-	}).addTo(map);
-});
 
 let tableData;
 
@@ -87,10 +74,22 @@ function onEachFeatureLIGHT(feature, layer) {
 function style(feature) {
   return {
     fillColor: '#fff9db',
-    weight: 0.9,
+    weight: 1,
+    opacity: 0.9,
+    color: "black",
+    fillOpacity: 0.01,
+    colorOpacity: 0.9,
+  };
+}
+
+// === Style  === //
+function nightstyle(feature) {
+  return {
+    fillColor: '#fff9db',
+    weight: 1,
     opacity: 0.9,
     color: "gray",
-    fillOpacity: 0.1,
+    fillOpacity: 0.01,
     colorOpacity: 0.9,
   };
 }
@@ -102,22 +101,24 @@ const stylevars = {
   PMTFV: style,
   OZONE: style,
   NOTWO: style,
-  LIGHT: style,
+  LIGHT: nightstyle,
   BLUES: style,
+  GREEN: style, 
 };
 
 const bindingsvars = {
   PMTFV: onEachFeaturePMTFV,
   OZONE: onEachFeatureOZONE,
   NOTWO: onEachFeatureNOTWO,
-  LIGHT: onEachFeatureLIGHT,
+  LIGHT: onEachFeaturePMTFV,
+  GREEN: onEachFeaturePMTFV,
   BLUES: onEachFeaturePMTFV,
 };
 
 
 
-/// .addTo(map) used to be .addTo(layerGroup) used to have ", styleType, bindings" after url
-function updateMap(url) {
+/// .addTo(map) used to be .addTo(layerGroup) used to have ", bindings" after styleType 
+function updateMap(url, styleType) {
 			map.eachLayer(function(layer) {
   	if (!!layer.toGeoJSON) {
     map.removeLayer(layer);
@@ -128,7 +129,7 @@ function updateMap(url) {
     .then(data => {
       dlist = data;
       L.geoJSON(data, {
-//        style: styleType,
+        style: styleType,
 ///use to have onEachFeature: bindings here 
       }).addTo(map);
     });
@@ -141,7 +142,7 @@ function updateMap(url) {
 
 function initializeMap() { 
   console.log("INITIALIZEMAP FN");
-  updateMap(mapvars.PMTFV); /// used to have ", stylevars.PMTFV, onEachFeaturePMTFV" after stylevars.PMTFV
+  updateMap(mapvars.PMTFV, stylevars.PMTFV); /// used to have ", onEachFeaturePMTFV" after stylevars.PMTFV
   sidebarContentController("filter-slide");
 }
 
@@ -185,7 +186,7 @@ function determineMap() {
 //      updateMappointPCH(mapvars[name], name, emptyCallback);
 //    }
     if (polygonLayers.includes(name)) {
-     updateMap(mapvars[name]);   /// used to have ", stylevars[name], bindingsvars[name]" after stylevars[name]
+      updateMap(mapvars[name], stylevars[name]);   /// used to have ", bindingsvars[name]" after stylevars[name]
     }
   });
 }
@@ -200,8 +201,9 @@ function anyChecked() {
   let l3 = checkies[2];
   let l4 = checkies[3];
   let l5 = checkies[4];
+  let l6 = checkies[5];
 
-  let cs = [l1, l2, l3, l4, l5];
+  let cs = [l1, l2, l3, l4, l5, l6];
 //  if (cs[3].checked) {
 //    console.log("includes resources");
 //    check(l5);
@@ -253,43 +255,25 @@ function PMTFVCheck() {
     uncheck(checkies[2]);
     uncheck(checkies[3]);
     uncheck(checkies[4]);
+    uncheck(checkies[5]);
     disable(checkies[1]);
     disable(checkies[2]);
     disable(checkies[3]);
     disable(checkies[4]);
-  	document.querySelector('#OZONE').onclick = (e) => {
+    disable(checkies[5]);
+  	document.querySelector('#NOTWO').onclick = (e) => {
   		return true;
   	}
-  	document.querySelector('#NOTWO').onclick = (e) => {
+  	document.querySelector('#OZONE').onclick = (e) => {
   		return true;
   	}
   	document.querySelector('#LIGHT').onclick = (e) => {
   		return true;
   	}
-  }
-  // onCheck();
-}
-
-function OZONECheck() {
-  if (checkies[1].checked) {
-  	document.querySelector('#OZONE').onclick = (e) => {
-  		e.preventDefault();
-  	}
-    uncheck(checkies[0]);
-    uncheck(checkies[2]);
-    uncheck(checkies[3]);
-    uncheck(checkies[4]);
-    disable(checkies[0]);
-    disable(checkies[2]);
-    disable(checkies[3]);
-    disable(checkies[4]);
-  	document.querySelector('#PMTFV').onclick = (e) => {
+  	document.querySelector('#GREEN').onclick = (e) => {
   		return true;
   	}
-  	document.querySelector('#NOTWO').onclick = (e) => {
-  		return true;
-  	}
-  	document.querySelector('#LIGHT').onclick = (e) => {
+  	document.querySelector('#BLUES').onclick = (e) => {
   		return true;
   	}
   }
@@ -297,18 +281,20 @@ function OZONECheck() {
 }
 
 function NOTWOCheck() {
-  if (checkies[2].checked) {
+  if (checkies[1].checked) {
   	document.querySelector('#NOTWO').onclick = (e) => {
   		e.preventDefault();
   	}
     uncheck(checkies[0]);
-    uncheck(checkies[1]);
+    uncheck(checkies[2]);
     uncheck(checkies[3]);
     uncheck(checkies[4]);
+    uncheck(checkies[5]);
     disable(checkies[0]);
-    disable(checkies[1]);
+    disable(checkies[2]);
     disable(checkies[3]);
     disable(checkies[4]);
+    disable(checkies[5]);
   	document.querySelector('#PMTFV').onclick = (e) => {
   		return true;
   	}
@@ -316,6 +302,46 @@ function NOTWOCheck() {
   		return true;
   	}
   	document.querySelector('#LIGHT').onclick = (e) => {
+  		return true;
+  	}
+  	document.querySelector('#GREEN').onclick = (e) => {
+  		return true;
+  	}
+  	document.querySelector('#BLUES').onclick = (e) => {
+  		return true;
+  	}
+  }
+  // onCheck();
+}
+
+function OZONECheck() {
+  if (checkies[2].checked) {
+  	document.querySelector('#OZONE').onclick = (e) => {
+  		e.preventDefault();
+  	}
+    uncheck(checkies[0]);
+    uncheck(checkies[1]);
+    uncheck(checkies[3]);
+    uncheck(checkies[4]);
+    uncheck(checkies[5]);
+    disable(checkies[0]);
+    disable(checkies[1]);
+    disable(checkies[3]);
+    disable(checkies[4]);
+    disable(checkies[5]);
+  	document.querySelector('#PMTFV').onclick = (e) => {
+  		return true;
+  	}
+  	document.querySelector('#NOTWO').onclick = (e) => {
+  		return true;
+  	}
+  	document.querySelector('#LIGHT').onclick = (e) => {
+  		return true;
+  	}
+  	document.querySelector('#GREEN').onclick = (e) => {
+  		return true;
+  	}
+  	document.querySelector('#BLUES').onclick = (e) => {
   		return true;
   	}
   }
@@ -331,53 +357,101 @@ function LIGHTCheck() {
     uncheck(checkies[1]);
     uncheck(checkies[2]);
     uncheck(checkies[4]);
+    uncheck(checkies[5]);
     disable(checkies[0]);
     disable(checkies[1]);
     disable(checkies[2]);
     disable(checkies[4]);
+    disable(checkies[5]);
   	document.querySelector('#PMTFV').onclick = (e) => {
+  		return true;
+  	}
+  	document.querySelector('#NOTWO').onclick = (e) => {
   		return true;
   	}
   	document.querySelector('#OZONE').onclick = (e) => {
   		return true;
   	}
-  	document.querySelector('#NOTWO').onclick = (e) => {
+  	document.querySelector('#GREEN').onclick = (e) => {
+  		return true;
+  	}
+  	document.querySelector('#BLUES').onclick = (e) => {
   		return true;
   	}
   }
   // onCheck();
 }
 
-function BLUESCheck() {
+
+function GREENCheck() {
   if (checkies[4].checked) {
-  	document.querySelector('#BLUES').onclick = (e) => {
+  	document.querySelector('#GREEN').onclick = (e) => {
   		e.preventDefault();
-  		e.stopPropagation
-  		return false;
   	}
     uncheck(checkies[0]);
     uncheck(checkies[1]);
     uncheck(checkies[2]);
     uncheck(checkies[3]);
+    uncheck(checkies[5]);
     disable(checkies[0]);
     disable(checkies[1]);
     disable(checkies[2]);
     disable(checkies[3]);
+    disable(checkies[5]);
   	document.querySelector('#PMTFV').onclick = (e) => {
-  		return true;
-  	}
-  	document.querySelector('#OZONE').onclick = (e) => {
   		return true;
   	}
   	document.querySelector('#NOTWO').onclick = (e) => {
   		return true;
   	}
+  	document.querySelector('#OZONE').onclick = (e) => {
+  		return true;
+  	}
   	document.querySelector('#LIGHT').onclick = (e) => {
+  		return true;
+  	}
+  	document.querySelector('#BLUES').onclick = (e) => {
   		return true;
   	}
   }
   // onCheck();
 }
+
+
+function BLUESCheck() {
+  if (checkies[5].checked) {
+  	document.querySelector('#BLUES').onclick = (e) => {
+  		e.preventDefault();
+  	}
+    uncheck(checkies[0]);
+    uncheck(checkies[1]);
+    uncheck(checkies[2]);
+    uncheck(checkies[3]);
+    uncheck(checkies[4]);
+    disable(checkies[0]);
+    disable(checkies[1]);
+    disable(checkies[2]);
+    disable(checkies[3]);
+    disable(checkies[4]);
+  	document.querySelector('#PMTFV').onclick = (e) => {
+  		return true;
+  	}
+  	document.querySelector('#NOTWO').onclick = (e) => {
+  		return true;
+  	}
+  	document.querySelector('#OZONE').onclick = (e) => {
+  		return true;
+  	}
+  	document.querySelector('#LIGHT').onclick = (e) => {
+  		return true;
+  	}
+  	document.querySelector('#GREEN').onclick = (e) => {
+  		return true;
+  	}
+  }
+  // onCheck();
+}
+
 
 
 

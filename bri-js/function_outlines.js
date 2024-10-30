@@ -41,8 +41,6 @@ function fillSlide(slide) {
   slideContentDiv.innerHTML = converter.makeHtml(slide.content);
 }
 
-// this will be the part of the funciton that if the
-// sidebar is closed then clicking on it will open the bar
 const sidebarContentController = function (slide) {
   console.log("you've called the sidebarContentController fn");
   if (slide.includes("story")) {
@@ -59,12 +57,16 @@ const sidebarContentController = function (slide) {
       checkies[1],
       checkies[2],
       checkies[3],
-      checkies[4]];
+      checkies[4],
+      checkies[5],
+      checkies[6],];
 
     checkies[0].addEventListener("change", PMTFVCheck);
-    checkies[1].addEventListener("change", OZONECheck);
-    checkies[2].addEventListener("change", NOTWOCheck);
+    checkies[1].addEventListener("change", NOTWOCheck);
+    checkies[2].addEventListener("change", OZONECheck);
     checkies[3].addEventListener("change", LIGHTCheck);
+    checkies[4].addEventListener("change", GREENCheck);
+    checkies[5].addEventListener("change", BLUESCheck);
 /*  checkies[4].addEventListener("change", SOURCECheck); */
     console.log("before check");
     allButResources.forEach(abr => abr.addEventListener("change", onCheck));
