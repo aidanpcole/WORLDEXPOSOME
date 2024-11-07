@@ -6,10 +6,7 @@ var imbounds = new L.LatLngBounds(
     new L.LatLng(45.9814, -22.8472),
     new L.LatLng(62.2015143, 12.28));
     
-var worldbounds = new L.LatLngBounds(
-	  new L.LatLng(3.3017,-13.6271),
-	  new L.LatLng(67.7256,98.5902)
-)
+
     
 var inbounds = new L.LatLngBounds(
     new L.LatLng(4.7891, 58.0936),
@@ -28,6 +25,11 @@ var worldbounds = new L.LatLngBounds(
 		new L.LatLng(-59.3612948,-179.4239418),
 		new L.LatLng(74.0848814,97.7829441)
 )
+
+var greenbounds = new L.LatLngBounds(
+		new L.LatLng(-65.55,-199.5),
+		new L.LatLng(77.417,117.7)
+);
 
 let map = L.map('map', {zoomControl: false, center: bounds.getCenter(), maxBounds: maxbounds,maxBoundsViscosity: 1.0, maxZoom:6, minZoom:3 }).setView([11.3, -49], 3);
 map.fitBounds(bounds);
@@ -1045,7 +1047,7 @@ var layerBLUE_2000 = new L.ImageOverlay("https://raw.githubusercontent.com/aidan
 });
 
 
-var layerGREEN_2000 = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap//GREEN_2000.png", worldbounds, {
+var layerGREEN_2000 = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap//GREEN_2000.png", greenbounds, {
     opacity: 1.0,
     interactive: false,
     time: "2000"
@@ -1153,7 +1155,7 @@ var layerGREEN_2017 = new L.ImageOverlay("https://raw.githubusercontent.com/aida
     time: "2017"
 });
 
-var layerGREEN_2018 = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap//GREEN_2018_NEW.png", worldbounds, {
+var layerGREEN_2018 = new L.ImageOverlay("https://raw.githubusercontent.com/aidanpcole/WORLDEXPOSOME/main/data/DataForMap//GREEN_2018.png", worldbounds, {
     opacity: 1.0,
     interactive: false,
     time: "2018"
