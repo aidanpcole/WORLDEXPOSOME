@@ -1,18 +1,124 @@
-/* 
- * Leaflet GeoJSON Selector v0.5.4 - 2018-09-28 
- * 
- * Copyright 2018 Stefano Cudini 
- * stefano.cudini@gmail.com 
- * https://opengeo.tech/ 
- * 
- * Licensed under the MIT license. 
- * 
- * Demo: 
- * https://opengeo.tech/maps/leaflet-geojson-selector/ 
- * 
- * Source: 
- * git@github.com:stefanocudini/leaflet-geojson-selector.git 
- * 
- */
+/* General styles for the GeoJSON list */
+.leaflet-container .geojson-list {
+    position: relative;
+    float: left;
+    color: #1978cf;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 0;
+    background-color: rgba(255, 255, 255, 0.6);
+    z-index: 1000;
+    box-shadow: 0 1px 7px rgba(0, 0, 0, 0.65);
+    margin: 10px;
+    max-width: 50px;
+    max-height: 172px;
+    overflow-y: scroll;
+}
 
-.leaflet-container .geojson-list{position:relative;float:left;color:#1978cf;-moz-border-radius:4px;-webkit-border-radius:4px;border-radius:0;background-color:rgba(255,255,255,.6);z-index:1000;box-shadow:0 1px 7px rgba(0,0,0,.65);margin:10px;max-width:50px;max-height:172px;overflow-y:scroll}.geojson-list-group{list-style:none;padding:0;margin:0}.geojson-list item{padding:0;margin:0;clear:both;cursor:pointer;display:block;overflow:hidden;line-height:18px;vertical-align:middle;font-size:14px;min-width:120px;color:#666;text-decoration:none;border-bottom:1px solid rgba(0,0,0,.5);-moz-user-select:none;-khtml-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none;white-space:nowrap;text-transform:capitalize}.geojson-list item.active,.geojson-list-item:hover{display:block;color:#666;text-decoration:none;background-color:rgba(255,204,0,.6)}.geojson-list-item.selected{color:#666;background-color:transparent;z-index:1001;}.geojson-list-item input{line-height:18px;margin:4px}.geojson-list-item label{display:block;cursor:pointer;vertical-align:middle}.leaflet-control.geojson-list .geojson-list-group{display:block} 
+.geojson-list-group {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.geojson-list-item {
+    padding: 0;
+    margin: 0;
+    clear: both;
+    cursor: pointer;
+    display: block;
+    overflow: hidden;
+    line-height: 18px;
+    vertical-align: middle;
+    font-size: 14px;
+    min-width: 120px;
+    color: #666;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    white-space: nowrap;
+    text-transform: capitalize;
+}
+
+/* Hover and active styles for non-selected items */
+.geojson-list-item.active,
+.geojson-list-item:hover {
+    display: block;
+    color: #1978cf;
+    text-decoration: none;
+    background-color: rgba(255, 204, 0, 0.6);
+}
+
+/* Persistent styles for selected items */
+.geojson-list-item.selected {
+    color: grey !important; /* Persistent grey font color */
+    background-color: transparent !important; /* No hover effect */
+    pointer-events: none; /* Disable interactions */
+    cursor: default; /* Indicate a disabled state */
+    font-weight: bold !important; /* Ensure bold styling for selected items */
+}
+
+/* Prevent hover effects on selected items */
+.geojson-list-item.selected:hover {
+    color: grey !important;
+    background-color: transparent !important;
+}
+
+/* Checkbox customization for selected items */
+.geojson-list-item.selected input[type="checkbox"] {
+    appearance: none; /* Remove default browser styles */
+    width: 14px; /* Checkbox size */
+    height: 14px;
+    border: 2px solid #1978cf; /* Blue border */
+    background-color: #1978cf; /* Blue fill */
+    cursor: default; /* Disable pointer indication */
+}
+
+/* Checked state for selected items */
+.geojson-list-item.selected input[type="checkbox"]:checked {
+    background-color: #1978cf; /* Ensure blue background for checked state */
+    border-color: #1978cf;
+}
+
+/* Checkbox customization for non-selected items */
+.geojson-list-item input[type="checkbox"] {
+    appearance: none; /* Remove default browser styles */
+    width: 14px;
+    height: 14px;
+    border: 2px solid #ccc; /* Light border for default state */
+    background-color: #fff; /* White background */
+    cursor: pointer; /* Indicate interactivity */
+}
+
+/* Checked state for non-selected items */
+.geojson-list-item input[type="checkbox"]:checked {
+    background-color: #1978cf; /* Blue for checked state */
+    border-color: #1978cf;
+}
+
+/* Input and label layout for GeoJSON list items */
+.geojson-list-item input {
+    line-height: 18px;
+    margin: 4px;
+}
+
+.geojson-list-item label {
+    display: block;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+/* Ensure the group list is displayed */
+.leaflet-control.geojson-list .geojson-list-group {
+    display: block;
+}
+
+
+
+
+
+
